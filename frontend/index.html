@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080E19" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script>
+    tailwind = window.tailwind || {};
+    tailwind.config = { darkMode: "class", theme: { extend: {
+      colors: { rfBg: "#080E19", rfSurface: "#111D2D", rfPrimaryText: "#F8FAFC", rfSecondaryText: "#94A3B8", rfCyan: "#67E8F9", rfScheduled: "#2563EB", rfAffected: "#F59E0B", rfConflict: "#EF4444", rfValidated: "#22C55E" },
+      fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"], mono: ['"JetBrains Mono"', "monospace"] }
+    }}};
+  </script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <meta
+    name="description"
+    content="RailFlow — AI-powered railway disruption management. Platform allocation, conflict detection and re-planning for operations teams."
+  />
+  <title>RailFlow — Railway Disruption & Platform Conflict Simulator</title>
+</head>
+
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

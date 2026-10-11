@@ -1,0 +1,71 @@
+/* RailFlow landing-page design styles imported from the supplied HTML. */
+.rf-landing { min-height: 100vh; width: 100%; overflow-x: clip; background: #080E19; color: #F8FAFC; font-family: "Plus Jakarta Sans", sans-serif; }
+.rf-landing *, .rf-landing *::before, .rf-landing *::after { box-sizing: border-box; }
+.rf-landing img, .rf-landing video { max-width: 100%; }
+.rf-landing a { cursor: pointer; }
+
+    body {
+      background-color: #080E19;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .grid-glow-bg {
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(103, 232, 249, 0.08) 0%, transparent 65%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 48px 48px, 48px 48px;
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.015); }
+    }
+    .pulse-glow {
+      animation: pulse-subtle 4s ease-in-out infinite;
+    }
+    /* Brand ticker infinite scroll */
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-ticker {
+      display: flex;
+      width: max-content;
+      animation: scroll 35s linear infinite;
+    }
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+  
+
+
+    @keyframes rfMarqueeSeamless {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-rf-gallery-loop {
+      display: flex;
+      width: max-content;
+      animation: rfMarqueeSeamless 45s linear infinite;
+    }
+    .animate-rf-gallery-loop:hover {
+      animation-play-state: paused;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-rf-gallery-loop {
+        animation: none;
+      }
+    }
+  
+@media (max-width: 640px) {
+  .rf-landing { overflow-x: clip; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rf-landing *, .rf-landing *::before, .rf-landing *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
