@@ -1,0 +1,19 @@
+# Local environment files; only placeholder examples may be committed.
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Dependencies and generated output.
+node_modules/
+.vite/
+dist/
+build/
+coverage/
+src/convex/_generated
+
+# Private keys and certificates.
+*.pem
+*.key
+*.p12
+*.pfx

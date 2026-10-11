@@ -27,8 +27,9 @@ constraint-based scheduler and validator remain authoritative for operations.
 - Python 3.13 or a compatible Python version supported by the local environment
 - The repository's existing `.venv`
 
-The current checkout contains the backend and ML experiment. The React/Vite
-frontend is maintained separately and is not included here.
+This repository includes the FastAPI backend and ML experiment described here,
+along with the React/Vite frontend in `frontend/`. The frontend keeps its own
+package configuration and Express development server in that directory.
 
 ## Setup and startup
 
@@ -41,6 +42,22 @@ From `D:\RailFlow`:
 ```
 
 Swagger UI is available at <http://127.0.0.1:8000/docs>.
+
+## Frontend setup
+
+From the repository root:
+
+```powershell
+Set-Location .\frontend
+npm ci
+npm run dev
+```
+
+The default development server runs the frontend and its Express API on port
+3000. To run only the Vite frontend, use `npm run dev:frontend`. Frontend
+environment-variable placeholders are documented in `frontend/.env.example`;
+keep real values in an ignored local environment file. The frontend-specific
+project guide is in `frontend/PROJECT_GUIDE.md`.
 
 ## Core API
 

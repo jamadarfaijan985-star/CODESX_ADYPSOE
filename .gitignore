@@ -16,7 +16,7 @@ venv/
 env/
 ENV/
 
-# Local secrets and environment overrides
+# Local environment files; only placeholder examples may be committed.
 .env
 .env.*
 !.env.example
@@ -38,6 +38,7 @@ Thumbs.db
 
 # Frontend dependencies and generated build output
 node_modules/
+.vite/
 dist/
 build/
 coverage/
@@ -52,3 +53,11 @@ coverage/
 /ml/experiments/delay_model_comparison/*
 !/ml/experiments/delay_model_comparison/selected_model.joblib
 !/ml/experiments/delay_model_comparison/evaluation.json
+
+# Generated Convex files and private key material.
+frontend/src/convex/_generated/
+
+*.pem
+*.key
+*.p12
+*.pfx
