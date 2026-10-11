@@ -35,7 +35,7 @@ const DashboardContent: React.FC = () => {
             <WifiOff className="w-4 h-4 text-red-400 shrink-0" />
             <span>
               <strong>Backend Disconnected:</strong> Cannot reach API server (
-              {health.error || 'Server unreachable at localhost:3000/api'}). Operating in degraded offline state.
+              {health.error || 'Server unreachable at 127.0.0.1:8000/api'}). Start the local FastAPI backend to use authoritative data.
             </span>
           </div>
           <span className="font-mono text-[11px] text-red-400">STATUS: OFFLINE</span>

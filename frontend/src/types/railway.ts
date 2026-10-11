@@ -181,35 +181,17 @@ export interface ParsedDisruption {
 }
 
 export interface DelayForecastRequest {
-  train_id: string;
+  service_date: string;
+  seq: number;
   station_code: string;
-  service_date?: string;
-  seq?: number;
 }
 
 export interface DelayForecastResult {
-  supported: boolean;
-  train_id: string;
-  station_code: string;
-  service_date?: string;
-  seq?: number;
+  predicted_delay_minutes: number;
   model_id: string;
-  target_variable: string;
-  predicted_delay_minutes?: number;
-  confidence_interval?: [number, number];
-  risk_level?: 'LOW' | 'MODERATE' | 'HIGH';
+  status: 'experimental';
+  experimental: boolean;
   disclaimer: string;
-  in_scope_explanation: string;
-  error?: string;
-  unsupported_reasons?: string[];
-  model_metadata: {
-    training_train_id: string;
-    training_stations: string[];
-    feature_count: number;
-    features: string[];
-    algorithm: string;
-    limitations: string[];
-  };
 }
 
 export type HistoryActionType =

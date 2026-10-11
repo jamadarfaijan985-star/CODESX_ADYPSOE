@@ -33,6 +33,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
     submitClosure,
     reopenPlatform,
     replanSchedule,
+    candidateReplan,
     disruptions,
     isLoading,
   } = useRailway();
@@ -148,6 +149,11 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
   };
 
   const handleTriggerReplan = async () => {
+    if (candidateReplan) {
+      onOpenReplanModal();
+      setPromptReplan(false);
+      return;
+    }
     try {
       await replanSchedule();
       onOpenReplanModal();
@@ -183,12 +189,12 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
             <Cpu className="w-5 h-5 text-cyan-400 animate-spin" />
             <div>
               <div className="text-xs font-bold text-white flex items-center gap-2">
-                <span>Disruption Registered in Local Demo State</span>
-                <StatusBadge label="READY FOR REPLAN" variant="candidate" size="sm" />
+                <span>Backend Revised Timetable Available</span>
+                <StatusBadge label="VALIDATED RESULT" variant="valid" size="sm" />
               </div>
               <p className="text-xs text-cyan-200 mt-0.5">
-                Conflicts have been detected. Solve a candidate timetable to resolve overlapping
-                occupancy and restore headway clearance buffers.
+                The backend scheduler has returned a revised timetable. Review its assignments and
+                authoritative validation result before continuing the demonstration.
               </p>
             </div>
           </div>
@@ -196,7 +202,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
             onClick={handleTriggerReplan}
             className="px-4 py-2 rounded bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer shadow-sm shadow-cyan-950"
           >
-            <span>Launch Replanning Workflow</span>
+            <span>{candidateReplan ? 'Review Backend Result' : 'Launch Replanning Workflow'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

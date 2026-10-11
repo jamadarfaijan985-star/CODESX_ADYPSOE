@@ -47,8 +47,12 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
   const validation = candidateReplan.validation;
   const isValid = validation.validation_state === 'VALID';
 
-  const handleRunDemoValidationOnCandidate = () => {
-    runFrontendValidation(candidate);
+  const handleRunDemoValidationOnCandidate = async () => {
+    try {
+      await runFrontendValidation(candidate);
+    } catch (err: any) {
+      setAdoptFeedback(err.message || 'Backend validation failed.');
+    }
   };
 
   const handleAdopt = async () => {
@@ -81,7 +85,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
                 <Cpu className="w-5 h-5 text-cyan-400" />
                 <span>Schedule Comparison &amp; Replan Review</span>
               </h2>
-              <StatusBadge label="ILLUSTRATIVE CANDIDATE" variant="candidate" size="sm" />
+              <StatusBadge label="BACKEND RESULT" variant="candidate" size="sm" />
               <span className="text-xs font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
                 {candidateReplan.replan_id}
               </span>
@@ -174,15 +178,15 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
                     Candidate Validation: {validation.validation_state}
                   </span>
                   <StatusBadge
-                    label="DEMO VALIDATION — NOT AUTHORITATIVE"
+                    label="AUTHORITATIVE BACKEND VALIDATION"
                     variant="demo"
                     size="sm"
                   />
                 </div>
                 <span className="text-xs text-slate-300 block mt-0.5">
                   {isValid
-                    ? 'All 4 independent checks confirmed passed. Safe for demonstration adoption.'
-                    : `Infeasible: ${validation.total_violations} safety checks failed. Adoption prohibited.`}
+                    ? 'The backend independently validated this revised timetable.'
+                    : `The backend reported ${validation.total_violations} safety violation(s). Adoption is prohibited.`}
                 </span>
               </div>
             </div>
@@ -193,7 +197,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
                 className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-700"
               >
                 <Play className="w-3 h-3 fill-current" />
-                <span>Re-run Demo Validation</span>
+                <span>Re-run Backend Validation</span>
               </button>
             </div>
           </div>
@@ -204,7 +208,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
               <div className="font-semibold text-white flex items-center gap-2">
                 <span>Side-by-Side Assignment Comparison</span>
                 <span className="text-slate-400 font-normal">
-                  (Original Schedule vs Illustrative Candidate)
+                  (Original Schedule vs Backend Revised Timetable)
                 </span>
               </div>
               <div className="flex items-center gap-3 text-[11px] font-mono text-slate-400">
@@ -227,7 +231,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
                     <th className="py-2.5 px-3">Original Schedule</th>
                     <th className="py-2.5 px-3">Proposed Candidate</th>
                     <th className="py-2.5 px-3">Assignment Shift</th>
-                    <th className="py-2.5 px-3">Illustrative Change Reason</th>
+                    <th className="py-2.5 px-3">Backend Change Reason</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
@@ -325,7 +329,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
                             <div className="space-y-0.5">
                               <p className="text-slate-200">{explanation.primary_reason}</p>
                               <span className="text-[10px] font-mono text-cyan-400/80">
-                                [ILLUSTRATIVE CANDIDATE]
+                                [BACKEND AUTHORITATIVE RESULT]
                               </span>
                             </div>
                           ) : (
@@ -354,7 +358,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
               onClick={handleDiscard}
               className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
             >
-              Discard Candidate &amp; Keep Original
+              Close Review (Backend Already Applied)
             </button>
             {onReturnToDisruptions && (
               <button
@@ -387,7 +391,7 @@ export const ScheduleComparisonModal: React.FC<ScheduleComparisonModalProps> = (
               }`}
             >
               <CheckCircle2 className="w-4 h-4" />
-              <span>{isAdopting ? 'Adopting Schedule...' : 'Adopt Candidate Timetable (Demo)'}</span>
+              <span>{isAdopting ? 'Acknowledging...' : 'Acknowledge Revised Timetable'}</span>
             </button>
           </div>
         </div>
