@@ -1,0 +1,54 @@
+# Python bytecode and test/tool caches
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Editor and operating-system noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Frontend dependencies and generated build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Local datasets and generated ML outputs. Keep runtime model/report visible
+# for an intentional distribution decision instead of hiding them globally.
+/data/*
+/ml/artifacts/*
+/ml/reports/*
+/ml/experiments/*
+!/ml/experiments/delay_model_comparison/
+/ml/experiments/delay_model_comparison/*
+!/ml/experiments/delay_model_comparison/selected_model.joblib
+!/ml/experiments/delay_model_comparison/evaluation.json
