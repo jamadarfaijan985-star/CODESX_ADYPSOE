@@ -36,6 +36,33 @@ def validate_timetable(timetable: StationTimetable) -> dict:
 
         platform = platform_map[train.platform_id]
 
+        if (
+            platform.supported_train_ids is not None
+            and train.id not in platform.supported_train_ids
+        ):
+            violations.append({
+                "type": "PLATFORM_NOT_SUPPORTED",
+                "train_id": train.id,
+                "platform_id": platform.id,
+                "message": (
+                    f"{train.id} is not supported on platform {platform.id}."
+                ),
+            })
+
+        if platform.availability_intervals and not any(
+            train.arrival >= start and train.departure <= end
+            for start, end in platform.availability_intervals
+        ):
+            violations.append({
+                "type": "PLATFORM_UNAVAILABLE",
+                "train_id": train.id,
+                "platform_id": platform.id,
+                "message": (
+                    f"{train.id} is outside the availability windows of "
+                    f"{platform.id}."
+                ),
+            })
+
         for start, end in platform.closed_intervals:
             if train.arrival < end and train.departure > start:
                 violations.append({
