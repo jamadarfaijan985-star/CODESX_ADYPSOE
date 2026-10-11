@@ -102,7 +102,7 @@ export const OperationsAssistantView: React.FC<{ onOpenReplanModal: () => void }
                 <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
               </div>
               <span className="text-[10px] text-slate-400">
-                Grounded in current local demonstration state ({selectedStation})
+                Grounded in current local station state ({selectedStation})
               </span>
             </div>
           </div>
@@ -148,7 +148,7 @@ export const OperationsAssistantView: React.FC<{ onOpenReplanModal: () => void }
                       <div className="flex items-center justify-between">
                         <span className="font-mono font-bold text-cyan-300 text-[11px] flex items-center gap-1.5">
                           <Cpu className="w-3.5 h-3.5" />
-                          <span>PROPOSED DEMO ACTION</span>
+                          <span>PROPOSED OPERATION</span>
                         </span>
                         {msg.actionCompleted && (
                           <StatusBadge label="EXECUTED" variant="valid" size="sm" />
@@ -169,7 +169,7 @@ export const OperationsAssistantView: React.FC<{ onOpenReplanModal: () => void }
                           }
                           className="w-full py-1.5 rounded bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-[11px] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                         >
-                          <span>Review &amp; Apply to Demo State</span>
+                          <span>Review &amp; Apply to Current State</span>
                           <ArrowRight className="w-3 h-3" />
                         </button>
                       )}
@@ -227,7 +227,7 @@ export const OperationsAssistantView: React.FC<{ onOpenReplanModal: () => void }
       <ConfirmationDialog
         isOpen={activeActionPayload !== null}
         title="Confirm Assistant Operational Action"
-        description="The Operations Assistant has formulated a demonstration action based on your conversation. Confirming will update the shared demonstration timetable."
+        description="The Operations Assistant has formulated an operation based on your conversation. Confirming will update the shared local timetable."
         variant="warning"
         confirmLabel="Authorize Action"
         details={

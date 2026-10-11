@@ -6,6 +6,7 @@ interface PageHeaderProps {
   subtitle?: string;
   stationCode?: string;
   isDemo?: boolean;
+  dataLabel?: string;
   actions?: React.ReactNode;
 }
 
@@ -14,6 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   subtitle,
   stationCode,
   isDemo = true,
+  dataLabel = 'SIMULATED TIMETABLE',
   actions,
 }) => {
   return (
@@ -27,7 +29,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             </span>
           )}
           {isDemo && (
-            <StatusBadge label="DEMO DATA" variant="demo" size="sm" />
+            <StatusBadge label={dataLabel} variant="demo" size="sm" />
           )}
         </div>
         {subtitle && <p className="text-xs text-slate-400 mt-1">{subtitle}</p>}

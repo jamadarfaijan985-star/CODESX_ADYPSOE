@@ -51,6 +51,35 @@ STATION_PROFILES: dict[str, StationProfile] = {
 }
 
 
+def initial_timetable_for_profile(profile: StationProfile) -> StationTimetable:
+    """Return the backend-owned illustrative seed timetable for a profile."""
+    seed_trains = {
+        "ST01": [
+            Train(id="T101", arrival=540, departure=555, platform_id="P1"),
+            Train(id="T102", arrival=550, departure=565, platform_id="P1"),
+            Train(
+                id="T103",
+                arrival=560,
+                departure=575,
+                platform_id="P2",
+                mandatory_platform_id="P2",
+            ),
+            Train(id="T104", arrival=580, departure=595, platform_id="P1"),
+            Train(id="T105", arrival=590, departure=605, platform_id="P2"),
+        ],
+        "ILLUSTRATIVE-NORTH": [
+            Train(id="N201", arrival=490, departure=510, platform_id="N1"),
+            Train(id="N202", arrival=525, departure=550, platform_id="N1"),
+            Train(id="N203", arrival=500, departure=530, platform_id="N2"),
+        ],
+        "ILLUSTRATIVE-YARD": [
+            Train(id="Y301", arrival=450, departure=525, platform_id="Y1"),
+            Train(id="Y302", arrival=480, departure=555, platform_id="Y2"),
+        ],
+    }
+    return timetable_for_profile(profile, seed_trains[profile.station_id])
+
+
 def list_station_profiles() -> list[StationProfile]:
     return list(STATION_PROFILES.values())
 

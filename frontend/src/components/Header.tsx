@@ -12,7 +12,10 @@ import {
   Moon,
   ShieldCheck,
   ShieldAlert,
+  LogOut,
 } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../auth/AuthContext.jsx';
 import { useRailway } from '../context/RailwayContext';
 import { StatusBadge } from './common/StatusBadge';
 
@@ -21,9 +24,12 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const {
     selectedStation,
     stations,
+    currentStationProfile,
     changeStation,
     health,
     lastRefreshTime,
@@ -42,6 +48,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
     setIsRefreshing(true);
     await refreshData();
     setTimeout(() => setIsRefreshing(false), 300);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login', { replace: true });
   };
 
   const formatTime = (date: Date | null) => {
@@ -118,11 +129,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
         </div>
       </div>
 
-      {/* Middle Controls: Station Selector, DEMO DATA Badge & Schedule Status */}
+      {/* Middle Controls: Station Selector, data-source badge & schedule status */}
       <div className="flex items-center gap-2.5 flex-wrap">
-        {/* Mandatory Visible DEMO DATA Label */}
         <StatusBadge
-          label="DEMO DATA · SIMULATED"
+          label={currentStationProfile?.illustrative ? 'ILLUSTRATIVE PROFILE' : 'FICTIONAL PROFILE'}
           variant="demo"
           size="sm"
           className="hidden sm:inline-flex"
@@ -163,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
           title={
             health.isOnline
               ? `Backend Connected (Latency: ${health.latencyMs}ms, v${health.version})`
-              : 'Client Demo Mode Active (Backend offline or standalone)'
+              : 'Offline client fallback; authoritative backend data is unavailable'
           }
         >
           {health.isOnline ? (
@@ -179,7 +189,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
           ) : (
             <>
               <WifiOff className="w-3.5 h-3.5 text-slate-400" />
-              <span className="font-mono text-[11px]">Local Demo</span>
+              <span className="font-mono text-[11px]">Offline</span>
             </>
           )}
         </div>
@@ -221,6 +231,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenResetConfirm }) => {
           title="Reset timetable and platform closures to baseline"
         >
           <RotateCcw className="w-4 h-4" />
+        </button>
+
+        {/* Session Logout */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-slate-800/60 hover:bg-red-950/40 border border-slate-700 hover:border-red-700/50 text-slate-300 hover:text-red-300 transition-colors text-xs font-medium"
+          title="Log out"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Logout</span>
         </button>
       </div>
     </header>

@@ -48,6 +48,7 @@ export interface StationProfile {
   min_headway_minutes: number;
   platforms: PlatformInfo[];
   description: string;
+  illustrative?: boolean;
 }
 
 export interface ConflictItem {

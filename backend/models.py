@@ -93,5 +93,14 @@ class ClosureRequest(BaseModel):
         return self
 
 
+class ReopenRequest(BaseModel):
+    platform_id: str = Field(min_length=1)
+    reopen_minute: int = Field(ge=0)
+
+
+class StationSelectionRequest(BaseModel):
+    station_id: str = Field(min_length=1)
+
+
 class DisruptionTextRequest(BaseModel):
     text: str = Field(min_length=3, max_length=500)

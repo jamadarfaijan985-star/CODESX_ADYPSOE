@@ -9,11 +9,13 @@ from backend.models import (
     DelayRequest,
     ClosureRequest,
     DisruptionTextRequest,
+    ReopenRequest,
+    StationSelectionRequest,
 )
 from backend.validator import validate_timetable
 from backend.conflict_detector import detect_conflicts
 from backend.scheduler import schedule_timetable
-from backend.disruption_engine import apply_delay, apply_closure
+from backend.disruption_engine import apply_delay, apply_closure, reopen_platform
 from backend.ai_parser import parse_disruption
 from backend.arrival_delay_prediction import (
     ArrivalDelayModelError,
@@ -24,6 +26,7 @@ from backend.arrival_delay_prediction import (
 from backend.station_profiles import (
     get_station_profile,
     list_station_profiles,
+    initial_timetable_for_profile,
     timetable_for_profile,
 )
 
@@ -36,6 +39,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ],
@@ -148,6 +153,21 @@ def get_station_profile_details(station_id: str):
     return profile.model_dump()
 
 
+@app.post("/api/stations/select")
+def select_station(request: StationSelectionRequest):
+    profile = get_station_profile(request.station_id)
+    if profile is None:
+        raise HTTPException(status_code=404, detail=f"Station profile {request.station_id} was not found.")
+    result = schedule_timetable(initial_timetable_for_profile(profile))
+    if result.get("status") != "VALID_FOUND":
+        return remember_result({
+            **result,
+            "station_selection": request.station_id,
+        })
+    result["station_selection"] = request.station_id
+    return remember_result(result)
+
+
 @app.get("/api/timetable")
 def get_timetable():
     return timetable_response(current_timetable)
@@ -197,6 +217,14 @@ def apply_platform_closure(request: ClosureRequest):
     if result.get("status") == "ERROR":
         raise HTTPException(status_code=404, detail=result["message"])
 
+    return remember_result(result)
+
+
+@app.post("/api/platforms/reopen")
+def reopen_closed_platform(request: ReopenRequest):
+    result = reopen_platform(current_timetable, request)
+    if result.get("status") == "ERROR":
+        raise HTTPException(status_code=409, detail=result["message"])
     return remember_result(result)
 
 

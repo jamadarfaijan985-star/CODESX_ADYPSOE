@@ -58,7 +58,7 @@ export const SettingsDiagnosticsView: React.FC = () => {
       setProbeResult({
         endpoint: test.path,
         status: 'OFFLINE / UNREACHABLE',
-        data: `Endpoint unreachable: ${err.message}. System functioning independently in client demo mode.`,
+        data: `Endpoint unreachable: ${err.message}. Showing the local fallback state until the backend is available.`,
       });
     } finally {
       setProbingEndpoint(null);
@@ -74,13 +74,13 @@ export const SettingsDiagnosticsView: React.FC = () => {
     <div className="space-y-6">
       {/* Page Header */}
       <PageHeader
-        title="Settings &amp; Demonstration Diagnostics"
-        subtitle="Manage demonstration station profiles, visual workspace themes, and voluntary backend probes."
+        title="Settings &amp; Local Diagnostics"
+        subtitle="Manage backend-provided station profiles, visual workspace themes, and voluntary route probes."
         stationCode={selectedStation}
         isDemo={true}
         actions={
           <StatusBadge
-            label="DEMO MODE ACTIVE"
+            label="LOCAL SIMULATION"
             variant="demo"
             size="sm"
           />
@@ -128,10 +128,10 @@ export const SettingsDiagnosticsView: React.FC = () => {
       <div className="bg-[#111D2D] border border-slate-800 rounded-lg p-5 space-y-4">
         <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
           <Layers className="w-4 h-4 text-cyan-400" />
-          <span>Demonstration Station Profiles</span>
+          <span>Backend Station Profiles</span>
         </h2>
         <p className="text-xs text-slate-400">
-          Strictly illustrative demonstration network profiles with realistic platform layouts and schedule patterns.
+          Profiles are supplied by the local backend. ST01 is fictional; the other available profiles are illustrative.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -182,7 +182,7 @@ export const SettingsDiagnosticsView: React.FC = () => {
               <span>Backend Integration Diagnostics (Voluntary)</span>
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Diagnostics are NOT executed automatically. The dashboard runs in autonomous client demo mode unless voluntarily tested.
+              Diagnostics are NOT executed automatically. Use these controls to probe the local backend when needed.
             </p>
           </div>
 
@@ -205,7 +205,7 @@ export const SettingsDiagnosticsView: React.FC = () => {
                 }`}
               />
               <span className="text-sm font-bold text-white font-mono">
-                {health.isOnline ? 'CONNECTED' : 'STANDALONE DEMO'}
+                {health.isOnline ? 'CONNECTED' : 'OFFLINE FALLBACK'}
               </span>
             </div>
           </div>
@@ -279,11 +279,11 @@ export const SettingsDiagnosticsView: React.FC = () => {
         </div>
       </div>
 
-      {/* Demo Reset Safety Controls */}
+      {/* Simulation Reset Safety Controls */}
       <div className="bg-[#111D2D] border border-slate-800 rounded-lg p-5 space-y-4">
         <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
           <RotateCcw className="w-4 h-4 text-amber-400" />
-          <span>Demonstration Data Reset</span>
+          <span>Simulation State Reset</span>
         </h2>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded bg-[#080E19] border border-slate-800">
@@ -298,7 +298,7 @@ export const SettingsDiagnosticsView: React.FC = () => {
             onClick={() => setConfirmResetOpen(true)}
             className="px-4 py-2 rounded bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold text-xs transition-colors cursor-pointer shrink-0"
           >
-            Reset Demo Data to Baseline
+            Reset Simulation State to Baseline
           </button>
         </div>
       </div>
@@ -306,7 +306,7 @@ export const SettingsDiagnosticsView: React.FC = () => {
       {/* Confirmation Dialog */}
       <ConfirmationDialog
         isOpen={confirmResetOpen}
-        title="Confirm Demonstration Data Reset"
+        title="Confirm Simulation State Reset"
         description={`This will restore initial baseline schedules and reopen all platform tracks for station ${selectedStation}.`}
         variant="warning"
         confirmLabel="Confirm Full Reset"

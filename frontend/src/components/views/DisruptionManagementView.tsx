@@ -65,7 +65,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
     setDelayTrainId('T102');
     setDelayMinutes('15');
     setDelayReason('Signal failure at junction interlocking');
-    setDelayNotes('Standard illustrative scenario for conflict propagation demo');
+    setDelayNotes('Standard illustrative scenario for conflict propagation');
   };
 
   const handleOpenDelayConfirm = (e: React.FormEvent) => {
@@ -142,9 +142,10 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
 
   const handleReopen = async (platformId: string) => {
     try {
-      await reopenPlatform(platformId);
+      const result = await reopenPlatform(platformId);
+      setClosureFeedback({ type: 'success', message: result.message });
     } catch (err: any) {
-      alert(`Failed to reopen platform: ${err.message}`);
+      setClosureFeedback({ type: 'error', message: err.message || 'Platform reopening failed.' });
     }
   };
 
@@ -168,16 +169,17 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
       {/* Page Header */}
       <PageHeader
         title="Disruption Incident Registration"
-        subtitle="Submit simulated train delays and platform track closures with confirmation summaries."
+        subtitle="Submit user-entered disruptions; revised schedules are calculated and independently validated by the backend."
         stationCode={selectedStation}
         isDemo={true}
+        dataLabel="CALCULATED SCHEDULE"
         actions={
           <button
             onClick={loadIllustrativeExample}
             className="flex items-center gap-2 px-3 py-1.5 rounded bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-600/50 text-xs font-semibold transition-colors cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Load Illustrative Demo (T102 +15m)</span>
+            <span>Load Illustrative Scenario (T102 +15m)</span>
           </button>
         }
       />
@@ -220,7 +222,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
               </h2>
             </div>
             <span className="text-[10px] font-mono text-slate-400 bg-[#080E19] px-2 py-0.5 rounded border border-slate-800">
-              Demo Disruption
+              Illustrative Input
             </span>
           </div>
 
@@ -324,7 +326,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
               </h2>
             </div>
             <span className="text-[10px] font-mono text-slate-400 bg-[#080E19] px-2 py-0.5 rounded border border-slate-800">
-              Demo Blockade
+              Illustrative Closure
             </span>
           </div>
 
@@ -486,7 +488,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
 
         {disruptions.length === 0 ? (
           <div className="text-slate-500 text-xs py-6 text-center">
-            No disruption incidents registered in this demonstration session.
+            No disruption incidents registered in this local session.
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -526,7 +528,7 @@ export const DisruptionManagementView: React.FC<DisruptionManagementViewProps> =
       <ConfirmationDialog
         isOpen={confirmDelayOpen}
         title="Confirm Train Delay Registration"
-        description={`You are about to register an operational delay for ${delayTrainId} in the demonstration timetable.`}
+        description={`You are about to register an operational delay for ${delayTrainId} in the active local timetable.`}
         variant="warning"
         confirmLabel="Authorize Train Delay"
         isLoading={isSubmitting}

@@ -84,6 +84,7 @@ export const PlatformOperationsView: React.FC = () => {
         subtitle="Visual Gantt track schedule, turnaround headway clearances, and maintenance blockades."
         stationCode={selectedStation}
         isDemo={true}
+        dataLabel="SIMULATED TIMETABLE"
         actions={
           <div className="flex items-center gap-2">
             <button

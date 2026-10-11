@@ -69,10 +69,12 @@ project guide is in `frontend/PROJECT_GUIDE.md`.
 | GET | `/api/conflicts` | Current validator conflicts |
 | GET | `/api/stations/profiles` | Available station profiles |
 | GET | `/api/stations/profiles/{station_id}` | One station profile |
+| POST | `/api/stations/select` | Select a backend-owned profile and load its illustrative seed timetable |
 | POST | `/api/schedule/validate` | Validate a supplied timetable |
 | POST | `/api/schedule/replan?station_id=ST01` | Replan using a selected profile |
 | POST | `/api/disruptions/delay` | Delay a known train and replan |
 | POST | `/api/disruptions/closure` | Close a platform interval and replan |
+| POST | `/api/platforms/reopen` | Reopen a platform after its closure interval ends and replan |
 | POST | `/api/disruptions/parse` | Parse disruption text without applying it |
 | POST | `/api/predictions/arrival-delay` | Standalone experimental delay estimate |
 | GET | `/api/schedule/history` | In-memory replan history |
@@ -95,6 +97,24 @@ Invoke-RestMethod -Method Post `
   -Uri http://127.0.0.1:8000/api/disruptions/closure `
   -ContentType application/json `
   -Body '{"platform_id":"P1","start_minute":540,"end_minute":570}'
+```
+
+Reopen `P1` only after the closure has ended:
+
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://127.0.0.1:8000/api/platforms/reopen `
+  -ContentType application/json `
+  -Body '{"platform_id":"P1","reopen_minute":570}'
+```
+
+Switch to the backend-owned illustrative North profile:
+
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://127.0.0.1:8000/api/stations/select `
+  -ContentType application/json `
+  -Body '{"station_id":"ILLUSTRATIVE-NORTH"}'
 ```
 
 Both requests are evaluated against the actual constraints. A result with
@@ -126,7 +146,8 @@ platform assignments, closures, or the active timetable.
 3. Submit the delay or closure request above.
 4. Inspect the `VALID_FOUND` response and its independent validation result.
 5. Fetch `/api/timetable` and `/api/conflicts` again to confirm the committed timetable and current conflict state.
-6. Try an impossible profile replan; confirm it reports infeasibility and does not replace the active valid timetable.
+6. Switch to `ILLUSTRATIVE-NORTH` through `/api/stations/select` and verify its `N1`/`N2` platforms.
+7. Try an impossible profile replan; confirm it reports infeasibility and does not replace the active valid timetable.
 
 ## Station profiles and limitations
 
@@ -155,7 +176,7 @@ Run the complete backend suite with:
 .\.venv\Scripts\python.exe -m pytest -v
 ```
 
-The current environment does not include the optional `httpx2` dependency
-required by FastAPI/Starlette `TestClient`; route-level regression tests use
-the public handler contracts and isolate in-memory state accordingly. Real HTTP
-smoke checks can be run against the Uvicorn server and Swagger UI.
+The suite includes real HTTP integration tests using an ephemeral Uvicorn server
+and Python's standard-library HTTP client. Request routing, JSON parsing,
+serialization, and status codes are exercised without adding a production
+dependency; tests isolate the backend's in-memory state between cases.

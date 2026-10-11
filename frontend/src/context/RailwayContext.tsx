@@ -12,7 +12,7 @@ import {
   StationProfile,
   TrainScheduleItem,
 } from '../types/railway';
-import { api, ApiHealthStatus, StationSnapshot } from '../services/api';
+import { api, ApiHealthStatus, StationSnapshot, timeToMinutes } from '../services/api';
 import { INITIAL_TIMETABLES, STATIONS } from '../server/data';
 
 interface RailwayContextType {
@@ -168,15 +168,14 @@ export const RailwayProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const changeStation = (stationCode: string) => {
     if (stationCode === selectedStation || isLoading) return;
-    const seed = fixtureState(stationCode);
     setIsLoading(true);
     setError(null);
+    setCandidateReplan(null);
+    setOriginalScheduleSnapshot(null);
     void api
-      .replanSchedule(stationCode, seed.timetable, seed.platforms, seed.profile?.min_headway_minutes || 5)
-      .then(async (result) => {
-        if (result.status !== 'VALID_FOUND') throw new Error(result.message);
-        setOriginalScheduleSnapshot(seed.timetable);
-        setCandidateReplan(result);
+      .selectStation(stationCode)
+      .then(async (raw) => {
+        if (raw.status !== 'VALID_FOUND' || !raw.validation?.valid) throw new Error(raw.message);
         await loadBackendState(stationCode);
       })
       .catch((err: any) => setError(err.message || `Unable to select station ${stationCode}.`))
@@ -232,7 +231,25 @@ export const RailwayProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const reopenPlatform = async (platformId: string) => {
-    throw new Error(`Platform reopening is not supported by the backend API (${platformId}).`);
+    setIsLoading(true);
+    setError(null);
+    try {
+      if (!health.isOnline) throw new Error('Backend is offline; no platform was reopened.');
+      const platform = platforms.find((item) => item.platform_id === platformId);
+      if (!platform?.is_closed || !platform.closure_end) {
+        throw new Error(`Platform ${platformId} is already open.`);
+      }
+      const raw = await api.reopenPlatform(platformId, timeToMinutes(platform.closure_end));
+      const result = api.toReplanResult(raw, timetable, selectedStation, conflicts.length);
+      await applyServerResult(result, timetable);
+      return { success: true, message: `${result.message} The platform is available after its closure window.` };
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Platform reopening failed.';
+      setError(message);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const replanSchedule = async (): Promise<ReplanResult> => {

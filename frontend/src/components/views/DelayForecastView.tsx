@@ -59,6 +59,7 @@ export const DelayForecastView: React.FC = () => {
         subtitle="A historical estimate from the backend model; it never changes the active timetable."
         stationCode={selectedStation}
         isDemo={true}
+        dataLabel="EXPERIMENTAL ML"
       />
 
       <div className="bg-[#111D2D] border border-amber-900/60 rounded-lg p-5 space-y-3">
@@ -71,6 +72,23 @@ export const DelayForecastView: React.FC = () => {
           The backend model was trained only on historical data for train 12624. It is not validated
           across all trains or stations and is not a confirmed live delay or operational guarantee.
         </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px] text-slate-300">
+          <div className="rounded bg-[#080E19] border border-slate-800 p-3">
+            <div className="font-semibold text-cyan-300">Model</div>
+            <div className="font-mono text-white mt-1">HistGradientBoosting · experiment v1</div>
+            <div className="text-slate-500 mt-1">Features: seq, station_code, day_of_week, month</div>
+          </div>
+          <div className="rounded bg-[#080E19] border border-slate-800 p-3">
+            <div className="font-semibold text-cyan-300">Historical evaluation</div>
+            <div className="font-mono text-white mt-1">MAE 8.40 · RMSE 13.80 · R² 0.14</div>
+            <div className="text-slate-500 mt-1">Final holdout: 2025-09-10 to 2026-08-31</div>
+          </div>
+          <div className="rounded bg-[#080E19] border border-slate-800 p-3">
+            <div className="font-semibold text-cyan-300">System boundary</div>
+            <div className="text-white mt-1">Predicts arrival delay only.</div>
+            <div className="text-slate-500 mt-1">It does not assign platforms or replan schedules.</div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

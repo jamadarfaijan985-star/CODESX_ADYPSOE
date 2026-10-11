@@ -239,3 +239,53 @@ def test_unknown_station_profile_returns_404_over_http(http_server):
 
     assert status == 404
     assert "UNKNOWN" in body["detail"]
+
+
+def test_station_selection_route_uses_backend_profile_over_http(http_server):
+    status, body = http_json(
+        http_server,
+        "/api/stations/select",
+        method="POST",
+        payload={"station_id": "ILLUSTRATIVE-NORTH"},
+    )
+    active_status, active = http_json(http_server, "/api/timetable")
+
+    assert status == 200
+    assert body["status"] == "VALID_FOUND"
+    assert body["validation"]["valid"] is True
+    assert body["schedule"]["station_id"] == "ILLUSTRATIVE-NORTH"
+    assert active_status == 200
+    assert active["station"]["id"] == "ILLUSTRATIVE-NORTH"
+    assert {platform["id"] for platform in active["platforms"]} == {"N1", "N2"}
+
+
+def test_reopen_route_requires_end_time_and_returns_valid_schedule_over_http(http_server):
+    closure_status, closure = http_json(
+        http_server,
+        "/api/disruptions/closure",
+        method="POST",
+        payload={"platform_id": "P1", "start_minute": 540, "end_minute": 570},
+    )
+    early_status, early = http_json(
+        http_server,
+        "/api/platforms/reopen",
+        method="POST",
+        payload={"platform_id": "P1", "reopen_minute": 569},
+    )
+    reopen_status, reopened = http_json(
+        http_server,
+        "/api/platforms/reopen",
+        method="POST",
+        payload={"platform_id": "P1", "reopen_minute": 570},
+    )
+    active_status, active = http_json(http_server, "/api/timetable")
+
+    assert closure_status == 200
+    assert closure["validation"]["valid"] is True
+    assert early_status == 409
+    assert "ends at minute 570" in early["detail"]
+    assert reopen_status == 200
+    assert reopened["status"] == "VALID_FOUND"
+    assert reopened["validation"]["valid"] is True
+    assert active_status == 200
+    assert active["platforms"][0]["closed_intervals"] == []

@@ -149,7 +149,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           value={validation?.validation_state || 'UNRESOLVED'}
           subtext={
             validation?.validation_state === 'VALID'
-              ? 'All 4 demo checks passed'
+              ? 'All 4 backend checks passed'
               : `${validation?.total_violations || 0} safety breaches`
           }
           icon={
@@ -358,7 +358,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               >
                 <div className="flex items-center gap-2.5">
                   <AlertOctagon className="w-4 h-4 text-red-400" />
-                  <span>Run Demo Validation ({validation?.checks_run.length || 4} Checks)</span>
+                  <span>Run Backend Validation ({validation?.checks_run.length || 4} Checks)</span>
                 </div>
                 <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
               </button>
@@ -418,7 +418,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           {/* Recent Audit History Preview */}
           <div className="bg-[#111D2D] border border-slate-800 rounded-lg p-5 space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-              <h2 className="text-sm font-semibold text-white">Recent Demonstration Events</h2>
+              <h2 className="text-sm font-semibold text-white">Recent Operational Events</h2>
               <button
                 onClick={() => onNavigate('history')}
                 className="text-cyan-400 hover:underline text-xs flex items-center gap-1"

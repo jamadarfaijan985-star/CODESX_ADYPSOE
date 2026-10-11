@@ -128,6 +128,7 @@ const mapProfile = (raw: any): StationProfile => ({
   min_headway_minutes: raw.minimum_gap_minutes,
   platforms: mapPlatforms(raw.platforms, raw.station_id),
   description: raw.description || '',
+  illustrative: Boolean(raw.illustrative),
 });
 
 const conflictType = (type: string): ConflictItem['conflict_type'] => {
@@ -358,6 +359,13 @@ class ApiService {
     return response.profiles.map(mapProfile);
   }
 
+  public async selectStation(stationCode: string): Promise<BackendResult> {
+    return this.request<BackendResult>('/stations/select', {
+      method: 'POST',
+      body: JSON.stringify({ station_id: stationCode }),
+    });
+  }
+
   public async getPlatforms(stationCode: string): Promise<PlatformInfo[]> {
     const profile = await this.request<any>(`/stations/profiles/${encodeURIComponent(stationCode)}`);
     return mapPlatforms(profile.platforms, profile.station_id);
@@ -439,6 +447,13 @@ class ApiService {
         start_minute: timeToMinutes(req.closure_start),
         end_minute: timeToMinutes(req.closure_end),
       }),
+    });
+  }
+
+  public async reopenPlatform(platformId: string, reopenMinute: number): Promise<BackendResult> {
+    return this.request<BackendResult>('/platforms/reopen', {
+      method: 'POST',
+      body: JSON.stringify({ platform_id: platformId, reopen_minute: reopenMinute }),
     });
   }
 
