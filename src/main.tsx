@@ -1,23 +1,11 @@
 import '@vly-ai/integrations';
 import { Toaster } from "@/components/ui/sonner";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
-import React, { StrictMode, useEffect, lazy, Suspense } from "react";
+import React, { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router";
+import { BrowserRouter, useLocation } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
-
-// Lazy load route components for better code splitting
-const NotFound = lazy(() => import("./pages/NotFound.tsx"));
-
-// Simple loading fallback for route transitions
-function RouteLoading() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading...</div>
-    </div>
-  );
-}
 
 /** Silent error boundary — if VlyToolbar crashes it renders nothing instead of
  *  crashing the whole app (e.g. hook errors in the browser runtime). */
@@ -106,15 +94,9 @@ createRoot(document.getElementById("root")!).render(
       </ToolbarErrorBoundary>
       <BrowserRouter>
         <RouteSyncer />
-        <Suspense fallback={<RouteLoading />}>
-          <Routes>
-            {/* Auth gate: shows the RailFlow login until a session exists. */}
-            <Route path="/" element={<App />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <App />
       </BrowserRouter>
-      <Toaster />
+      <Toaster theme="dark" position="top-right" />
     </RootErrorBoundary>
   </StrictMode>,
 );

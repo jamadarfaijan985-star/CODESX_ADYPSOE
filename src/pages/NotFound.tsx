@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 export default function NotFound() {
   return (
@@ -17,6 +18,9 @@ export default function NotFound() {
             <div className="text-center">
               <h1 className="text-4xl font-bold text-foreground mb-4">404</h1>
               <p className="text-lg text-muted-foreground">Page Not Found</p>
+              <Link className="rf-btn rf-btn--primary mt-6 inline-flex" to="/">
+                Back to RailFlow
+              </Link>
             </div>
           </div>
         </div>

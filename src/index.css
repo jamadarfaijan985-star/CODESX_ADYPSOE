@@ -51,8 +51,8 @@
   --card-foreground: #e9eefb;
   --popover: #0d1a2e;
   --popover-foreground: #e9eefb;
-  --primary: #ffb020;
-  --primary-foreground: #14100a;
+  --primary: #2f7bff;
+  --primary-foreground: #ffffff;
   --secondary: #16233a;
   --secondary-foreground: #cfe0f7;
   --muted: #132036;
@@ -62,20 +62,20 @@
   --destructive: #ff5d6c;
   --border: #1e2f4d;
   --input: #1e2f4d;
-  --ring: #ffb020;
-  --chart-1: #ffb020;
+  --ring: #22d3ee;
+  --chart-1: #22d3ee;
   --chart-2: #3ddc97;
   --chart-3: #5aa7ff;
   --chart-4: #b48cff;
   --chart-5: #ff8a5c;
   --sidebar: #0a1322;
   --sidebar-foreground: #e9eefb;
-  --sidebar-primary: #ffb020;
-  --sidebar-primary-foreground: #14100a;
+  --sidebar-primary: #2f7bff;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #16233a;
   --sidebar-accent-foreground: #e9eefb;
   --sidebar-border: #1e2f4d;
-  --sidebar-ring: #ffb020;
+  --sidebar-ring: #22d3ee;
 }
 
 .dark {
@@ -138,9 +138,13 @@
   --rf-text: #e9eefb;
   --rf-dim: #94a9c9;
   --rf-faint: #64789b;
-  --rf-amber: #ffb020;
-  --rf-amber-deep: #f0980c;
-  --rf-amber-soft: rgba(255, 176, 32, 0.12);
+  /* Electric railway-tech accent palette */
+  --rf-accent: #2f7bff;
+  --rf-accent-deep: #1d57d6;
+  --rf-accent-soft: rgba(47, 123, 255, 0.14);
+  --rf-cyan: #22d3ee;
+  --rf-cyan-soft: rgba(34, 211, 238, 0.12);
+  --rf-amber: #ffb020; /* status: held / caution only */
   --rf-green: #3ddc97;
   --rf-red: #ff5d6c;
   --rf-steel: #5aa7ff;
@@ -162,7 +166,7 @@ body {
 }
 
 ::selection {
-  background: rgba(255, 176, 32, 0.32);
+  background: rgba(34, 211, 238, 0.3);
   color: #ffffff;
 }
 
@@ -213,7 +217,7 @@ body {
     ),
     radial-gradient(
       760px 460px at 88% 110%,
-      rgba(255, 176, 32, 0.07),
+      rgba(34, 211, 238, 0.06),
       transparent 60%
     ),
     linear-gradient(180deg, var(--rf-bg) 0%, var(--rf-bg-deep) 100%);
@@ -415,8 +419,8 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--rf-amber) 20%,
-    var(--rf-amber) 80%,
+    var(--rf-accent) 20%,
+    var(--rf-accent) 80%,
     transparent
   );
 }
@@ -456,7 +460,7 @@ body {
   place-items: center;
   border-radius: 14px;
   background: linear-gradient(160deg, #142744, #0b1526);
-  border: 1px solid rgba(255, 176, 32, 0.45);
+  border: 1px solid rgba(34, 211, 238, 0.5);
 }
 
 .rf-logo svg {
@@ -475,7 +479,7 @@ body {
 }
 
 .rf-wordmark__accent {
-  color: var(--rf-amber);
+  color: var(--rf-accent);
 }
 
 .rf-sub {
@@ -497,9 +501,9 @@ body {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ffd28a;
-  background: var(--rf-amber-soft);
-  border: 1px solid rgba(255, 176, 32, 0.4);
+  color: #9fe8ff;
+  background: var(--rf-cyan-soft);
+  border: 1px solid rgba(34, 211, 238, 0.4);
 }
 
 .rf-badge::before {
@@ -507,8 +511,8 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--rf-amber);
-  box-shadow: 0 0 8px rgba(255, 176, 32, 0.8);
+  background: var(--rf-cyan);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
 }
 
 .rf-badge--sm {
@@ -570,7 +574,7 @@ body {
   background: #08111f;
   border: 1px solid var(--rf-line);
   border-radius: 9px;
-  caret-color: var(--rf-amber);
+  caret-color: var(--rf-cyan);
   transition:
     border-color 0.18s ease,
     box-shadow 0.18s ease,
@@ -588,8 +592,8 @@ body {
 .rf-input:focus {
   outline: none;
   background: #0a1424;
-  border-color: rgba(255, 176, 32, 0.75);
-  box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.16);
+  border-color: rgba(34, 211, 238, 0.75);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
 }
 
 .rf-input:disabled {
@@ -692,8 +696,13 @@ body {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #1a1206;
-  background: linear-gradient(180deg, #ffc757, var(--rf-amber-deep));
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--rf-accent) 0%,
+    var(--rf-accent-deep) 100%
+  );
+  box-shadow: 0 0 24px rgba(47, 123, 255, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 10px;
   cursor: pointer;
@@ -711,7 +720,7 @@ body {
 }
 
 .rf-submit:focus-visible {
-  outline: 2px solid var(--rf-amber);
+  outline: 2px solid var(--rf-cyan);
   outline-offset: 3px;
 }
 
@@ -724,8 +733,8 @@ body {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid rgba(26, 18, 6, 0.28);
-  border-top-color: #1a1206;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
   animation: rf-spin 0.7s linear infinite;
 }
 
@@ -770,7 +779,7 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #ffd28a;
-  background: var(--rf-amber-soft);
+  background: var(--rf-cyan-soft);
   border: 1px solid rgba(255, 176, 32, 0.35);
 }
 
@@ -821,7 +830,7 @@ body {
 }
 
 .rf-nav__brand:focus-visible {
-  outline: 2px solid var(--rf-amber);
+  outline: 2px solid var(--rf-accent);
   outline-offset: 4px;
 }
 
@@ -830,15 +839,15 @@ body {
   width: 26px;
   height: 26px;
   border-radius: 7px;
-  border: 1px solid rgba(255, 176, 32, 0.5);
+  border: 1px solid rgba(34, 211, 238, 0.55);
   background-color: #0b1526;
   background-image:
     linear-gradient(
       90deg,
       transparent 30%,
-      rgba(255, 176, 32, 0.9) 30% 38%,
+      rgba(34, 211, 238, 0.9) 30% 38%,
       transparent 38% 62%,
-      rgba(255, 176, 32, 0.9) 62% 70%,
+      rgba(47, 123, 255, 0.9) 62% 70%,
       transparent 70%
     ),
     repeating-linear-gradient(
@@ -855,7 +864,7 @@ body {
 }
 
 .rf-nav__word span {
-  color: var(--rf-amber);
+  color: var(--rf-accent);
 }
 
 .rf-nav__right {
@@ -933,7 +942,7 @@ body {
   font-size: 10.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--rf-amber);
+  color: var(--rf-accent);
 }
 
 .rf-dash__head h1 {
@@ -1027,7 +1036,7 @@ body {
   width: 30px;
   font-family: var(--rf-mono);
   font-size: 12px;
-  color: var(--rf-amber);
+  color: var(--rf-accent);
 }
 
 .rf-row__svc {
@@ -1228,4 +1237,1187 @@ body {
   .rf-logout {
     transition: none;
   }
+}
+
+/* ============================================================
+   RailFlow auth system — railway-tech SaaS layer
+   Glassmorphism · electric blue + cyan · animated railway scene
+   ============================================================ */
+
+/* ---------- Brand chrome ---------- */
+
+.rf-statusbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--rf-text);
+  border-radius: 6px;
+  transition: opacity 0.16s ease;
+}
+
+.rf-statusbar__brand:hover {
+  opacity: 0.88;
+}
+
+.rf-statusbar__brand:focus-visible {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 4px;
+}
+
+.rf-wordmark--sm {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+/* Electric highlights win over the legacy accent colour. */
+.rf-wordmark__accent,
+.rf-nav__word span,
+.rf-kicker {
+  color: var(--rf-cyan);
+}
+
+.rf-logo--xs {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border-color: rgba(34, 211, 238, 0.55);
+  background: linear-gradient(160deg, #10233d, #0a1424);
+}
+
+.rf-logo--xs svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rf-logo--sm {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.rf-logo--sm svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Animated railway scene ---------- */
+
+.rf-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rf-scene__routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+.rf-route {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 6 14;
+  animation: rf-route-flow 7s linear infinite;
+}
+
+.rf-route--1 {
+  stroke: rgba(34, 211, 238, 0.55);
+}
+
+.rf-route--2 {
+  stroke: rgba(47, 123, 255, 0.5);
+  animation-duration: 9s;
+}
+
+.rf-route--3 {
+  stroke: rgba(146, 182, 235, 0.32);
+  animation-duration: 12s;
+}
+
+@keyframes rf-route-flow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.rf-node {
+  fill: rgba(7, 16, 32, 0.9);
+  stroke: var(--rf-cyan);
+  stroke-width: 2;
+}
+
+.rf-node--hub {
+  stroke: #ffffff;
+}
+
+.rf-halo {
+  fill: none;
+  stroke: rgba(34, 211, 238, 0.5);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rf-halo 2.8s ease-out infinite;
+}
+
+.rf-halo--late {
+  animation-delay: 1.3s;
+  stroke: rgba(47, 123, 255, 0.55);
+}
+
+@keyframes rf-halo {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+.rf-tracks {
+  position: absolute;
+  inset: 0;
+}
+
+.rf-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(120, 170, 240, 0.3) 12%,
+    rgba(120, 170, 240, 0.3) 88%,
+    transparent
+  );
+}
+
+.rf-track--1 {
+  top: 24%;
+}
+
+.rf-track--2 {
+  top: 58%;
+}
+
+.rf-track--3 {
+  top: 84%;
+}
+
+.rf-train {
+  position: absolute;
+  top: -1.5px;
+  left: 0;
+  width: 96px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 211, 238, 0.95) 60%,
+    #ffffff
+  );
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.75);
+  opacity: 0.85;
+  animation: rf-train-run 9s linear infinite;
+}
+
+.rf-train--b {
+  width: 150px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(47, 123, 255, 0.95) 60%,
+    #cfe4ff
+  );
+  box-shadow: 0 0 14px rgba(47, 123, 255, 0.7);
+  animation-duration: 13s;
+  animation-delay: -6s;
+  animation-direction: reverse;
+}
+
+.rf-train--c {
+  width: 72px;
+  animation-duration: 7s;
+  animation-delay: -2.5s;
+}
+
+@keyframes rf-train-run {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+.rf-particles {
+  position: absolute;
+  inset: 0;
+}
+
+.rf-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(170, 216, 255, 0.85);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
+  opacity: 0.4;
+  animation: rf-float 7s ease-in-out infinite alternate;
+}
+
+@keyframes rf-float {
+  from {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(-28px);
+    opacity: 0.75;
+  }
+}
+
+/* ---------- Screen transition slot + glass card ---------- */
+
+.rf-auth__slot {
+  width: min(460px, 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.rf-glass {
+  position: relative;
+  width: 100%;
+  padding: 30px 30px 26px;
+  border-radius: 20px;
+  background: linear-gradient(
+    165deg,
+    rgba(17, 32, 58, 0.72) 0%,
+    rgba(7, 14, 28, 0.82) 100%
+  );
+  border: 1px solid rgba(120, 190, 255, 0.18);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow:
+    0 24px 60px rgba(0, 6, 20, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 0 48px rgba(47, 123, 255, 0.16);
+  overflow: hidden;
+}
+
+.rf-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--rf-cyan) 25%,
+    var(--rf-accent) 75%,
+    transparent
+  );
+}
+
+.rf-glass::after {
+  content: "";
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.16),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.rf-glass__head {
+  position: relative;
+  z-index: 1;
+}
+
+.rf-glass__title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--rf-text);
+}
+
+.rf-glass__lead {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--rf-dim);
+}
+
+.rf-glass__lead b {
+  color: var(--rf-cyan);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.rf-glass__body {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px;
+}
+
+.rf-glass__foot {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(146, 182, 235, 0.22);
+}
+
+.rf-glass__alt {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--rf-dim);
+  text-align: center;
+}
+
+.rf-glass__alt--row {
+  justify-content: space-between;
+  text-align: left;
+}
+
+/* ---------- Forms, checks, links, buttons ---------- */
+
+.rf-glass .rf-form {
+  padding: 0; /* neutralise the legacy card padding */
+  gap: 16px;
+}
+
+.rf-labelrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 18px;
+}
+
+.rf-label {
+  transition: color 0.18s ease;
+}
+
+.rf-field:focus-within .rf-label {
+  color: var(--rf-cyan);
+}
+
+.rf-field--invalid .rf-label {
+  color: #ff9aa6;
+}
+
+.rf-form__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rf-form__note {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--rf-faint);
+}
+
+.rf-form__note svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--rf-green);
+}
+
+.rf-check {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--rf-dim);
+  cursor: pointer;
+  user-select: none;
+}
+
+.rf-check input {
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.rf-check__box {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 5px;
+  border: 1px solid var(--rf-line);
+  background: #08111f;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.rf-check input:checked + .rf-check__box {
+  background: linear-gradient(135deg, var(--rf-cyan), var(--rf-accent));
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+}
+
+.rf-check input:checked + .rf-check__box::after {
+  content: "";
+  position: absolute;
+  left: 5.5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid #04101f;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.rf-check input:focus-visible + .rf-check__box {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 2px;
+}
+
+.rf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--rf-cyan);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color 0.16s ease;
+}
+
+.rf-link:hover {
+  color: #7fecff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rf-link:focus-visible {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 3px;
+}
+
+.rf-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rf-link--sm {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--rf-dim);
+}
+
+.rf-link--sm:hover {
+  color: var(--rf-cyan);
+}
+
+.rf-link--btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.rf-link--btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.rf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.rf-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.rf-btn--primary {
+  background: linear-gradient(135deg, var(--rf-accent), var(--rf-accent-deep));
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(47, 123, 255, 0.3);
+}
+
+.rf-btn--primary:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 0 26px rgba(47, 123, 255, 0.45);
+}
+
+.rf-btn--ghost {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--rf-text);
+  border-color: var(--rf-line);
+}
+
+.rf-btn--ghost:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  color: var(--rf-cyan);
+}
+
+.rf-btn--danger {
+  background: rgba(255, 93, 108, 0.1);
+  color: #ff9aa6;
+  border-color: rgba(255, 93, 108, 0.45);
+}
+
+.rf-btn--danger:hover {
+  background: rgba(255, 93, 108, 0.18);
+}
+
+.rf-btn:focus-visible {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 3px;
+}
+
+.rf-eyebtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -5px -6px -5px 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rf-faint);
+  cursor: pointer;
+  transition:
+    color 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.rf-eyebtn:hover {
+  color: var(--rf-cyan);
+  background: rgba(34, 211, 238, 0.1);
+}
+
+.rf-eyebtn:focus-visible {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 2px;
+}
+
+.rf-eyebtn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ---------- Status panels, notices, loader ---------- */
+
+.rf-success {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  text-align: center;
+}
+
+.rf-success__icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rf-cyan-soft);
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  color: var(--rf-cyan);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.25);
+}
+
+.rf-success__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.rf-success p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--rf-dim);
+}
+
+.rf-success--error .rf-success__icon {
+  background: rgba(255, 93, 108, 0.1);
+  border-color: rgba(255, 93, 108, 0.4);
+  color: var(--rf-red);
+  box-shadow: 0 0 24px rgba(255, 93, 108, 0.2);
+}
+
+.rf-devnote {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px dashed rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.06);
+  font-family: var(--rf-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--rf-dim);
+  text-align: left;
+}
+
+.rf-devnote b {
+  color: var(--rf-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.rf-devnote code {
+  font-family: var(--rf-mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--rf-text);
+  background: rgba(255, 255, 255, 0.07);
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+.rf-devnote--block {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.rf-terms {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px dashed rgba(146, 182, 235, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--rf-dim);
+  text-align: left;
+}
+
+.rf-terms p {
+  margin: 0;
+}
+
+.rf-loader {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 36px 0;
+  color: var(--rf-dim);
+  font-family: var(--rf-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rf-loader svg {
+  width: 22px;
+  height: 22px;
+  color: var(--rf-cyan);
+}
+
+/* ---------- Password strength meter ---------- */
+
+.rf-strength {
+  display: grid;
+  gap: 7px;
+  margin-top: -6px;
+}
+
+.rf-strength__bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.rf-strength__bar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(146, 182, 235, 0.16);
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.rf-strength__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--rf-faint);
+}
+
+.rf-strength__label {
+  font-family: var(--rf-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.rf-strength__label b {
+  color: var(--rf-dim);
+  font-weight: 600;
+}
+
+.rf-strength--bad .is-on {
+  background: var(--rf-red);
+  box-shadow: 0 0 8px rgba(255, 93, 108, 0.5);
+}
+
+.rf-strength--warn .is-on {
+  background: var(--rf-amber);
+  box-shadow: 0 0 8px rgba(255, 176, 32, 0.5);
+}
+
+.rf-strength--good .is-on {
+  background: #4fb9ff;
+  box-shadow: 0 0 8px rgba(79, 185, 255, 0.5);
+}
+
+.rf-strength--great .is-on {
+  background: var(--rf-green);
+  box-shadow: 0 0 8px rgba(61, 220, 151, 0.5);
+}
+
+/* ---------- Six-digit OTP ---------- */
+
+.rf-otp {
+  display: flex;
+  justify-content: center;
+}
+
+.rf-otp__container {
+  gap: 10px;
+}
+
+.rf-otp__group {
+  gap: 10px;
+}
+
+.rf-otp__slot {
+  width: 48px;
+  height: 56px;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--rf-mono);
+  color: var(--rf-text);
+  background: rgba(8, 17, 31, 0.85);
+  border: 1px solid var(--rf-line);
+  border-radius: 12px;
+  box-shadow: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.rf-otp__slot[data-active="true"] {
+  border-color: rgba(34, 211, 238, 0.8);
+  box-shadow:
+    0 0 0 3px rgba(34, 211, 238, 0.15),
+    0 0 20px rgba(34, 211, 238, 0.28);
+  transform: translateY(-2px);
+}
+
+/* ---------- Authenticated chrome: user chip, avatar, dropdown ---------- */
+
+.rf-userchip--btn {
+  cursor: pointer;
+  max-width: 270px;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.rf-userchip--btn:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  background: rgba(34, 211, 238, 0.07);
+}
+
+.rf-userchip--btn:focus-visible {
+  outline: 2px solid var(--rf-cyan);
+  outline-offset: 3px;
+}
+
+.rf-userchip__meta {
+  display: grid;
+  gap: 1px;
+  line-height: 1.25;
+  text-align: left;
+  min-width: 0;
+}
+
+.rf-userchip__meta b {
+  font-family: var(--rf-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rf-text);
+  letter-spacing: 0.01em;
+}
+
+.rf-userchip__meta small {
+  font-size: 10px;
+  color: var(--rf-faint);
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rf-userchip__caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--rf-faint);
+}
+
+.rf-avatar {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-family: var(--rf-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #04101f;
+  background: linear-gradient(135deg, var(--rf-cyan), var(--rf-accent));
+}
+
+.rf-avatar--xl {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  font-size: 22px;
+}
+
+.rf-menu {
+  min-width: 250px;
+  padding: 6px;
+  background: rgba(10, 19, 34, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--rf-line);
+  border-radius: 12px;
+  box-shadow: 0 18px 44px rgba(0, 6, 20, 0.6);
+}
+
+.rf-menu__label {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px 6px;
+}
+
+.rf-menu__name {
+  font-family: var(--rf-sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--rf-text);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.rf-menu__mail {
+  font-family: var(--rf-mono);
+  font-size: 11px;
+  color: var(--rf-faint);
+  letter-spacing: normal;
+  text-transform: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rf-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--rf-dim);
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.rf-menu__item svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  opacity: 0.9;
+}
+
+.rf-menu__item:hover,
+.rf-menu__item:focus {
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--rf-text);
+}
+
+.rf-menu__item--danger {
+  color: #ff9aa6;
+}
+
+.rf-menu__item--danger:hover,
+.rf-menu__item--danger:focus {
+  background: rgba(255, 93, 108, 0.14);
+  color: #ffc2c9;
+}
+
+/* ---------- Profile & settings ---------- */
+
+.rf-dash__main--narrow {
+  width: min(880px, 100%);
+}
+
+.rf-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 4px;
+}
+
+.rf-profile__id {
+  min-width: 0;
+}
+
+.rf-profile__id h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--rf-text);
+}
+
+.rf-profile__id p {
+  margin: 4px 0 0;
+  font-family: var(--rf-mono);
+  font-size: 12.5px;
+  color: var(--rf-dim);
+  word-break: break-word;
+}
+
+.rf-details {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.rf-details__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 12px;
+  border: 1px solid rgba(120, 160, 220, 0.14);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rf-details__row dt {
+  font-family: var(--rf-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rf-faint);
+}
+
+.rf-details__row dd {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--rf-text);
+  text-align: right;
+  word-break: break-word;
+}
+
+.rf-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.rf-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--rf-green);
+}
+
+.rf-verified svg {
+  width: 13px;
+  height: 13px;
+}
+
+.rf-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+
+.rf-setting__text {
+  display: grid;
+  gap: 4px;
+  min-width: min(100%, 280px);
+}
+
+.rf-setting__text label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--rf-text);
+  cursor: pointer;
+}
+
+.rf-setting__text p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--rf-faint);
+}
+
+.rf-panel--danger {
+  border-color: rgba(255, 93, 108, 0.35);
+}
+
+.rf-panel--danger .rf-panel__head {
+  color: #ff9aa6;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 560px) {
+  .rf-glass {
+    padding: 26px 20px 22px;
+    border-radius: 16px;
+  }
+  .rf-glass__title {
+    font-size: 23px;
+  }
+  .rf-auth__slot {
+    width: 100%;
+  }
+  .rf-statusbar > span:last-child {
+    display: none;
+  }
+  .rf-otp__container,
+  .rf-otp__group {
+    gap: 7px;
+  }
+  .rf-otp__slot {
+    width: 40px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+  .rf-userchip__meta {
+    display: none;
+  }
+  .rf-userchip {
+    padding: 6px 8px;
+  }
+  .rf-details__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .rf-details__row dd {
+    text-align: left;
+  }
+  .rf-setting {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .rf-profile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Reduced motion (auth layer) ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .rf-scene,
+  .rf-scene *,
+  .rf-glass,
+  .rf-strength__bar,
+  .rf-check__box,
+  .rf-otp__slot {
+    animation: none !important;
+    transition: none !important;
+  }
+  .rf-train {
+    transform: translateX(32vw);
+    opacity: 0.6;
+  }
+}
+
+html.rf-reduce-motion .rf-scene,
+html.rf-reduce-motion .rf-scene *,
+html.rf-reduce-motion .rf-glass,
+html.rf-reduce-motion .rf-strength__bar,
+html.rf-reduce-motion .rf-check__box,
+html.rf-reduce-motion .rf-otp__slot {
+  animation: none !important;
+  transition: none !important;
+}
+
+html.rf-reduce-motion .rf-train {
+  transform: translateX(32vw);
+  opacity: 0.6;
 }
